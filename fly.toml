@@ -23,6 +23,4 @@ primary_region = "lax"
 [deploy]
   strategy = "immediate"
 
-[[mounts]]
-  source = "openwebui_data"
-  destination = "/app/backend/data"
+
