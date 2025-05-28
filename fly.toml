@@ -1,32 +1,28 @@
 app = "subvita-oi"
+primary_region = "lax"
 
 [build]
   image = "ghcr.io/open-webui/open-webui:latest"
 
 [env]
-  HOST = "0.0.0.0"
-  PORT = "8080" # 这个我们之前加上的，继续保留
+  WEBUI_SECRET_KEY = "4f8a2b1c9e3d6f7a8b5c2e1f4a7b9c6d3e8f1a2b5c7d9e4f6a8b1c3d5e7f9a2b"
   OPENAI_API_KEY = ""
 
-[deploy]
-  [deploy.resources]
-    memory = "4096" # <<----- 把这里改成 2048 (或者 4096)
-    cpu = 1
-
-[[services]]
+[http_service]
   internal_port = 8080
-  protocol = "tcp"
+  force_https = true
+  auto_stop_machines = true
+  auto_start_machines = true
+  min_machines_running = 0
 
-  [[services.ports]]
-    port = 80
-    handlers = ["http"]
+[[vm]]
+  cpu_kind = "shared"
+  cpus = 1
+  memory_mb = 2048
 
-  [[services.ports]]
-    port = 443
-    handlers = ["tls", "http"]
+[deploy]
+  strategy = "immediate"
 
-  [[services.tcp_checks]]
-    grace_period = "30s"
-    interval = "15s"
-    timeout = "2s"
-    restart_limit = 0
+[[mounts]]
+  source = "openwebui_data"
+  destination = "/app/backend/data"
