@@ -1,5 +1,5 @@
 app = "subvita-oi"
-primary_region = "lax"
+primary_region = "den"
 
 [build]
   image = "ghcr.io/open-webui/open-webui:latest"
@@ -11,9 +11,15 @@ primary_region = "lax"
 [http_service]
   internal_port = 8080
   force_https = true
-  auto_stop_machines = true
+  auto_stop_machines = false  # 关键：暂时关闭自动停机
   auto_start_machines = true
-  min_machines_running = 0
+  min_machines_running = 1
+
+[http_service.checks]
+  interval = "60s"
+  timeout = "30s"
+  grace_period = "300s"  # 5分钟启动时间
+  path = "/"
 
 [[vm]]
   cpu_kind = "shared"
@@ -22,5 +28,3 @@ primary_region = "lax"
 
 [deploy]
   strategy = "immediate"
-
-
