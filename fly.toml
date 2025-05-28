@@ -11,11 +11,9 @@ app = "subvita-oi"
 
 # 部署资源分配（避免内存不足）
 [deploy]
-  resources = {
-    memory = "1024MB",
-    cpu = "1"
-  }
-
+  [deploy.resources]
+    memory = "1024"
+    cpu = 1
 # Fly 服务端口映射配置
 [[services]]
   internal_port = 3000
