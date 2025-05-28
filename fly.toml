@@ -1,20 +1,18 @@
 app = "subvita-oi"
 
-# 使用官方构建好的镜像，避免本地构建
 [build]
   image = "ghcr.io/open-webui/open-webui:latest"
 
-# 设置环境变量，强制监听 0.0.0.0（确保外部可访问）
 [env]
   HOST = "0.0.0.0"
-  OPENAI_API_KEY = ""  # 👉 可以手动填入你的 Key，也可以用 flyctl secrets set 注入
+  PORT = "8080" # 这个我们之前加上的，继续保留
+  OPENAI_API_KEY = ""
 
-# 部署资源分配（避免内存不足）
 [deploy]
   [deploy.resources]
-    memory = "1024"
+    memory = "4096" # <<----- 把这里改成 2048 (或者 4096)
     cpu = 1
-# Fly 服务端口映射配置
+
 [[services]]
   internal_port = 8080
   protocol = "tcp"
