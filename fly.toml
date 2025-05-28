@@ -16,7 +16,7 @@ app = "subvita-oi"
     cpu = 1
 # Fly 服务端口映射配置
 [[services]]
-  internal_port = 3000
+  internal_port = 8080
   protocol = "tcp"
 
   [[services.ports]]
