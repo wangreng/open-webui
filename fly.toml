@@ -1,0 +1,19 @@
+app = "subvita-oi"
+
+[build]
+  image = "ghcr.io/open-webui/open-webui:latest"
+
+[env]
+  OPENAI_API_KEY = ""
+
+[[services]]
+  internal_port = 3000
+  protocol = "tcp"
+
+  [[services.ports]]
+    port = 80
+    handlers = ["http"]
+
+  [[services.ports]]
+    port = 443
+    handlers = ["tls", "http"]
