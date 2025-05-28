@@ -6,7 +6,7 @@ app = "subvita-oi"
 
 # 设置环境变量，强制监听 0.0.0.0（确保外部可访问）
 [env]
-  WEBUI_HOST = "0.0.0.0"
+  HOST = "0.0.0.0"
   OPENAI_API_KEY = ""  # 👉 可以手动填入你的 Key，也可以用 flyctl secrets set 注入
 
 # 部署资源分配（避免内存不足）
