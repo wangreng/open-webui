@@ -1,24 +1,36 @@
+# 应用基本配置
 app = "subvita-oi"
-primary_region = "den"
+primary_region = "den"  # Denver 数据中心
 
 [build]
-  image = "ghcr.io/open-webui/open-webui:latest"
+  # 建议用 main 标签而不是 latest，更稳定
+  image = "ghcr.io/open-webui/open-webui:main"
 
 [env]
+  # Open WebUI 密钥（用于加密会话等）
   WEBUI_SECRET_KEY = "4f8a2b1c9e3d6f7a8b5c2e1f4a7b9c6d3e8f1a2b5c7d9e4f6a8b1c3d5e7f9a2b"
-  OPENAI_API_KEY = ""
+  
+  # JWT 令牌密钥（用于用户身份验证）
+  WEBUI_JWT_SECRET_KEY = "7c2f8e9a4b6d1f3c5e8a2d7b9f4e6c1a8b3d5f7e9c2a4b6d8f1e3c5a7b9d2f4e6"
+  
+  # DeepSeek API 配置
+  OPENAI_API_BASE_URL = "https://api.deepseek.com"
+  # 注意：OPENAI_API_KEY 不在这里配置，使用 Fly.io Secrets 管理
+  
+  # 启用用户认证
+  WEBUI_AUTH = "True"
 
 [http_service]
-  internal_port = 8080
-  force_https = true
-  auto_stop_machines = false
-  auto_start_machines = true
-  min_machines_running = 1
+  internal_port = 8080          # Open WebUI 内部端口
+  force_https = true            # 强制 HTTPS
+  auto_stop_machines = false    # 不自动停止（保持运行）
+  auto_start_machines = true    # 自动启动
+  min_machines_running = 1      # 最少保持 1 台机器运行
 
 [[vm]]
-  cpu_kind = "shared"
-  cpus = 1
-  memory_mb = 2048
+  cpu_kind = "shared"    # 共享 CPU（经济实惠）
+  cpus = 1              # 1 核心
+  memory_mb = 2048      # 2GB 内存（对 Open WebUI 来说足够）
 
 [deploy]
-  strategy = "immediate"
+  strategy = "immediate"  # 立即部署策略（不等待健康检查）
